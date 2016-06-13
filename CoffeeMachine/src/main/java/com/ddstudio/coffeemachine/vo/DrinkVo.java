@@ -1,8 +1,5 @@
 package com.ddstudio.coffeemachine.vo;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class DrinkVo {
 	public int drinkNo;
 	public String drinkName;

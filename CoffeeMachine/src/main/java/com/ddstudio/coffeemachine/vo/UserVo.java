@@ -2,9 +2,6 @@ package com.ddstudio.coffeemachine.vo;
 
 import java.time.LocalDateTime;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class UserVo {
 	public int userNo;
 	public String userName;

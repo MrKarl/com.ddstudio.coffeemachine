@@ -5,12 +5,26 @@ import java.time.LocalDateTime;
 public class OrderVo {
 	public int orderId;		// 한명이 주문하면 자동으로 올라
 	public int roomId;		// 주문 방번호
-	public int userNo;
+	public int userNo;		// Deprecated	
+	public String userName;	
+	public int waitingTime;
 	public int drinkNo;
 	public String floor;
 	public LocalDateTime orderTime;
 	public int canPay;
 	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public int getWaitingTime() {
+		return waitingTime;
+	}
+	public void setWaitingTime(int waitingTime) {
+		this.waitingTime = waitingTime;
+	}
 	
 	public String getFloor() {
 		return floor;

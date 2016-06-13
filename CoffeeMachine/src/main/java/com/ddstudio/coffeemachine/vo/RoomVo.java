@@ -6,9 +6,37 @@ public class RoomVo {
 	public int roomId;
 	public int howManyPeople;
 	public int totalPrice;
+	public boolean isFinished;
+	public String smsMessage;
+	public String senderPhoneNumber;
+	public String receiverPhoneNumber;
 	public LocalDateTime createdTime;
 	public LocalDateTime finishedTime;
 	
+	public boolean isFinished() {
+		return isFinished;
+	}
+	public void setFinished(boolean isFinished) {
+		this.isFinished = isFinished;
+	}
+	public String getSmsMessage() {
+		return smsMessage;
+	}
+	public void setSmsMessage(String smsMessage) {
+		this.smsMessage = smsMessage;
+	}
+	public String getSenderPhoneNumber() {
+		return senderPhoneNumber;
+	}
+	public void setSenderPhoneNumber(String senderPhoneNumber) {
+		this.senderPhoneNumber = senderPhoneNumber;
+	}
+	public String getReceiverPhoneNumber() {
+		return receiverPhoneNumber;
+	}
+	public void setReceiverPhoneNumber(String receiverPhoneNumber) {
+		this.receiverPhoneNumber = receiverPhoneNumber;
+	}
 	public int getRoomId() {
 		return roomId;
 	}

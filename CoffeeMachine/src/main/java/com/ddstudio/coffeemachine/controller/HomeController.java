@@ -1,11 +1,7 @@
 package com.ddstudio.coffeemachine.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,55 +9,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ddstudio.coffeemachine.service.CoffeeOrderService;
+import com.ddstudio.coffeemachine.vo.OrderVo;
 
 @Controller
 public class HomeController {
 	@Autowired
 	public CoffeeOrderService coffeeOrderService;
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+//	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
 	
-	
-	public HomeController(){
-	    super();
-	}
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+	public String main(Model model) {
+		int currentRoom = coffeeOrderService.getCurrentRoom();
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		List<OrderVo> orderVoList = coffeeOrderService.getOrders(currentRoom);
 		
-		String formattedDate = dateFormat.format(date);
+		System.out.println("HomeController currentRoom = " + currentRoom);
+		System.out.println("HomeController orderCount = " + orderVoList.size());
 		
-		model.addAttribute("serverTime", formattedDate );
+		if(orderVoList.size() == 4) {
+			// 주문이 진행되고 있으니, 잠시만 기다려 달라는 페이지 노출
+			
+			return "processing";
+		}
 		
-		String pageName = "main";
-		logger.info("pageName.", pageName);
-		
-		return pageName;
+		model.addAttribute("roomId", currentRoom);
+		return "main";
 	}
 	
 	
+	@RequestMapping(value = "/order", method = RequestMethod.POST)
+	public String order(OrderVo orderVo) {
+		System.out.println("HomeController userName = " + orderVo.userName);
+		coffeeOrderService.order(orderVo);
+		return "main";
+	}
 	
-	
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-    public String main(Locale locale, Model model) {
-        logger.info("Welcome home! The client locale is {}.", locale);
-        
-        Date date = new Date();
-        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-        
-        String formattedDate = dateFormat.format(date);
-        
-        model.addAttribute("serverTime", formattedDate );
-        
-        String pageName = "main";
-        logger.info("pageName.", pageName);
-        
-        return pageName;
-    }
 }
